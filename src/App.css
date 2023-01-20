@@ -9,7 +9,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+    animation: App-logo-spin infinite 10s linear;
   }
 }
 
@@ -19,7 +19,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
   font-size: calc(10px + 2vmin);
   color: white;
 }
@@ -34,5 +34,34 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+.winner {
+  width: 20%;
+  top: 50%;
+  position: absolute;
+  left: 40%;
+  border-bottom: 5px solid white;
+  overflow: hidden;
+  animation: animate 2s linear forwards;
+}
+
+.winner h1 {
+  color: white;
+}
+
+@keyframes animate {
+  0% {
+    width: 0px;
+    height: 0px;
+  }
+  30% {
+    width: 50px;
+    height: 0px;
+  }
+  60% {
+    width: 50px;
+    height: 80px;
   }
 }
