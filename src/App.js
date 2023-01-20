@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Animation from "./Animation";
 
 const useFocus = () => {
@@ -19,6 +19,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [showWinner, setShowWinner] = useState(false);
   const [inputRef, setInputFocus] = useFocus();
+  const [dummyParticipant, setDummyParticipant] = useState("");
 
   const handleParticipantNameChange = (e) => {
     setParticipantName(e.target.value);
@@ -46,14 +47,30 @@ function App() {
     setInputFocus();
   };
 
+  const shuffleParticipants = (participants) => {
+    return participants
+      .map((participant) => ({ sortKey: Math.random(), participant }))
+      .sort((current, next) => current.sortKey - next.sortKey)
+      .map(({ participant }) => participant);
+  };
+
   const start = () => {
     setIsLoading(true);
-    setTimeout(() => {
-      const winner =
+    setDummyParticipant(
+      participants[Math.floor(Math.random() * participants.length)]
+    );
+    const interval = setInterval(() => {
+      const dummyName =
         participants[Math.floor(Math.random() * participants.length)];
-      setIsLoading(false);
+      setDummyParticipant(dummyName);
+    }, 1000);
+    setTimeout(() => {
+      const shuffledParticipants = shuffleParticipants(participants);
+      const winner = shuffledParticipants[0];
       setWinner(winner);
       setShowWinner(true);
+      setIsLoading(false);
+      clearInterval(interval);
     }, 5000);
   };
 
@@ -86,7 +103,7 @@ function App() {
           (isLoading ? (
             <>
               <img src={logo} className="App-logo" alt="logo" />
-              <div>Any guess?? {participants.join(", ")}?</div>
+              <div>Any guess?? {dummyParticipant}?</div>
             </>
           ) : (
             <>
