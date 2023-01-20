@@ -2,6 +2,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import { useEffect, useRef, useState } from "react";
 import Animation from "./Animation";
+import Loader from "./Loader";
 
 const useFocus = () => {
   const htmlElRef = useRef(null);
@@ -102,7 +103,8 @@ function App() {
         {!showWinner &&
           (isLoading ? (
             <>
-              <img src={logo} className="App-logo" alt="logo" />
+              <Loader />
+              {/* <img src={logo} className="App-logo" alt="logo" /> */}
               <div>Any guess?? {dummyParticipant}?</div>
             </>
           ) : (
