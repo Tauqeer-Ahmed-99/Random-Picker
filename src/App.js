@@ -1,7 +1,16 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Animation from "./Animation";
+
+const useFocus = () => {
+  const htmlElRef = useRef(null);
+  const setFocus = () => {
+    htmlElRef.current && htmlElRef.current.focus();
+  };
+
+  return [htmlElRef, setFocus];
+};
 
 function App() {
   const [winner, setWinner] = useState("");
@@ -9,6 +18,7 @@ function App() {
   const [participants, setParticipants] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [showWinner, setShowWinner] = useState(false);
+  const [inputRef, setInputFocus] = useFocus();
 
   const handleParticipantNameChange = (e) => {
     setParticipantName(e.target.value);
@@ -33,6 +43,7 @@ function App() {
         alert("Please enter a valid participant name.");
       }
     }
+    setInputFocus();
   };
 
   const start = () => {
@@ -81,6 +92,7 @@ function App() {
             <>
               <div>
                 <input
+                  ref={inputRef}
                   value={participantName}
                   onChange={handleParticipantNameChange}
                   style={{ height: "2rem", width: "20rem", fontSize: "1rem" }}
