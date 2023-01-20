@@ -124,6 +124,7 @@ function App() {
                     onClick={start}
                     style={{
                       marginLeft: "2rem",
+                      marginTop: "2rem",
                       height: "2rem",
                       width: "10rem",
                       cursor: "pointer",
